@@ -1,6 +1,6 @@
 # Zunain Ali Azam — Portfolio
 
-Personal portfolio and blog built with [Astro](https://astro.build), Tailwind CSS, and MDX. Live at **[muhammadamas.dev](https://muhammadamas.dev)**.
+Personal portfolio and blog built with [Astro](https://astro.build), Tailwind CSS, and MDX. Live at **[zunainaliazam.vercel.app](https://zunainaliazam.vercel.app)**.
 
 ---
 
@@ -131,7 +131,7 @@ That single prop-pass produces all of the following in `<head>`:
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Experience | Zunain Ali Azam" />
 <meta name="twitter:description" content="My work history as a Software Engineer." />
-<meta name="twitter:image" content="https://muhammadamas.dev/og-image.png" />
+<meta name="twitter:image" content="https://zunainaliazam.vercel.app/og-image.png" />
 ```
 
 ### SEO layer by layer
@@ -150,7 +150,7 @@ Each page passes its own `description` prop. There is a default fallback (`"Zuna
 Generated dynamically from `Astro.site` + the current page path:
 ```ts
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-// → https://muhammadamas.dev/experience
+// → https://zunainaliazam.vercel.app/experience
 ```
 This prevents duplicate-content penalties if the site is ever mirrored or accessed via multiple domains.
 
@@ -166,7 +166,7 @@ Uses `summary_large_image` — produces a large image card when a URL is shared 
 ```
 User-agent: *
 Allow: /
-Sitemap: https://muhammadamas.dev/sitemap-index.xml
+Sitemap: https://zunainaliazam.vercel.app/sitemap-index.xml
 ```
 
 **7. Blog posts and projects (content collections)**
@@ -183,4 +183,4 @@ Sitemap: https://muhammadamas.dev/sitemap-index.xml
 
 ## Deployment
 
-The site is a static build (`pnpm build` → `dist/`). Deploy the `dist/` folder to any static host (Vercel, Netlify, Cloudflare Pages, etc.). Make sure the host serves the site at `https://muhammadamas.dev` so canonical URLs and the sitemap resolve correctly.
+The site is a static build (`pnpm build` → `dist/`). Deploy the `dist/` folder to any static host (Vercel, Netlify, Cloudflare Pages, etc.). Make sure the host serves the site at `https://zunainaliazam.vercel.app` so canonical URLs and the sitemap resolve correctly.
