@@ -1,0 +1,57 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  date: Date;
+  tags?: string[];
+  image?: string;
+}
+
+const { title, description, date, tags = [], image } = Astro.props;
+
+const formattedDate = new Intl.DateTimeFormat('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+}).format(date);
+---
+
+<BaseLayout title={title} description={description} image={image} type="article">
+  <article class="container py-16 sm:py-24">
+    <header class="max-w-2xl mb-12">
+      <div class="flex flex-wrap gap-2 mb-4">
+        {tags.map((tag) => <span class="tech-tag">{tag}</span>)}
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">{title}</h1>
+      <p class="text-zinc-500 dark:text-zinc-400 text-lg mb-6">{description}</p>
+      <time
+        datetime={date.toISOString()}
+        class="text-sm text-zinc-400 dark:text-zinc-500 font-mono"
+      >
+        {formattedDate}
+      </time>
+    </header>
+
+    <div
+      class="prose prose-zinc dark:prose-invert max-w-2xl
+             prose-headings:font-semibold prose-headings:tracking-tight
+             prose-a:text-indigo-500 prose-a:no-underline hover:prose-a:underline
+             prose-code:text-indigo-400 prose-code:bg-zinc-100 dark:prose-code:bg-zinc-800
+             prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:font-mono prose-code:text-sm
+             prose-pre:bg-zinc-900 prose-pre:border prose-pre:border-zinc-800"
+    >
+      <slot />
+    </div>
+
+    <div class="mt-16 pt-8 border-t border-zinc-200 dark:border-zinc-800">
+      <a href="/blog" class="btn-secondary">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m15 18-6-6 6-6"/>
+        </svg>
+        Back to Writing
+      </a>
+    </div>
+  </article>
+</BaseLayout>

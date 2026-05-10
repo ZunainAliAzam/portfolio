@@ -1,0 +1,51 @@
+[
+  {
+    "company": "IOMechs",
+    "location": "Karachi, Pakistan",
+    "role": "Software Engineer",
+    "type": "Full-time",
+    "start": "Feb 2025",
+    "end": null,
+    "current": true,
+    "bullets": [
+      "Contributed to Estenarh (80,000+ users) by developing and maintaining Admin dashboards and customer-facing modules using Angular, Angular Material, and Tailwind CSS.",
+      "Improved Estenarh's search visibility and frontend maintainability by resolving Technical SEO issues and leading migration efforts from Next.js v14 to v16.",
+      "Designed and implemented analytical dashboards tracking client acquisition, retention rates, bookings, and revenue metrics — replacing manual reporting and reducing reporting effort by ~30–40%.",
+      "Migrated Estenarh Admin from Angular v14 to v17 through structured refactoring, improving scalability, UI consistency, and long-term maintainability.",
+      "Contributed to IMS and Admin workflows for AZM using Angular, Angular Material, and reusable component architecture, streamlining internal operational processes.",
+      "Stabilized NowCutz Admin and Shop portals by resolving 12+ production issues and delivering new features within a monorepo setup using Next.js, TailwindCSS, and TanStack Query.",
+      "Collaborated with backend and QA teams across multiple products to ensure reliable API integrations and smooth production releases."
+    ],
+    "tech": ["Angular", "Angular Material", "Next.js", "TailwindCSS", "TanStack Query", "TypeScript"]
+  },
+  {
+    "company": "Infinity Solutions",
+    "location": "Karachi, Pakistan",
+    "role": "Frontend Developer",
+    "type": "Full-time",
+    "start": "Jun 2024",
+    "end": "Jan 2025",
+    "current": false,
+    "bullets": [
+      "Developed and maintained an e-commerce admin dashboard using React, Redux Toolkit, and Tailwind CSS for order and operational management workflows.",
+      "Built multiple responsive client websites with cross-browser compatibility and mobile-first implementations.",
+      "Implemented centralized state management and API integration flows using Redux Toolkit, improving frontend data handling and scalability.",
+      "Worked closely with backend and QA teams to streamline testing and deployment cycles."
+    ],
+    "tech": ["React", "Redux Toolkit", "Tailwind CSS", "TypeScript"]
+  },
+  {
+    "company": "National Center for Cyber Security — NED",
+    "location": "Karachi, Pakistan",
+    "role": "Frontend Developer Intern",
+    "type": "Internship",
+    "start": "Jan 2024",
+    "end": "Apr 2024",
+    "current": false,
+    "bullets": [
+      "Contributed to the development of 4ormation, a remote hiring platform, using HTML, CSS, Bootstrap, and JavaScript.",
+      "Implemented frontend forms, navigation flows, and API integrations to support candidate and recruiter workflows."
+    ],
+    "tech": ["HTML", "CSS", "Bootstrap", "JavaScript"]
+  }
+]
