@@ -1,0 +1,100 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Hero from '@/components/Hero.astro';
+import ProjectCard from '@/components/ProjectCard.astro';
+import SkillMap from '@/components/SkillMap.astro';
+import { getCollection } from 'astro:content';
+import ExperienceTimeline from '@/components/ExperienceTimeline.astro';
+
+const allProjects = await getCollection('projects');
+const featuredProjects = allProjects
+  .filter((p) => p.data.featured)
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout
+  title="Zunain Ali Azam"
+  description="Software Engineer specializing in React, Angular, Next.js, and TypeScript. Building scalable web applications with a focus on frontend architecture and performance."
+>
+  <Hero />
+
+  <!-- Featured Projects -->
+  <section class="container py-24" data-animate>
+    <div class="flex items-end justify-between mb-8">
+      <div>
+        <p class="section-label">Selected Work</p>
+        <h2 class="text-2xl font-bold text-zinc-900 dark:text-zinc-100">Featured Projects</h2>
+      </div>
+      <a href="/projects" class="text-sm font-medium text-orange-500 hover:text-orange-400 transition-colors shrink-0">
+        View all →
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" data-animate-stagger>
+      {featuredProjects.map((project) => (
+        <ProjectCard
+          title={project.data.title}
+          description={project.data.description}
+          tech={project.data.tech}
+          category={project.data.category}
+          github={project.data.github}
+          live={project.data.live}
+          slug={project.slug}
+          featured={project.data.featured}
+          yearCompleted={project.data.yearCompleted}
+          image={project.data.image}
+        />
+      ))}
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section class="dark:bg-zinc-950 dark:border-none py-16 sm:py-24" data-animate>
+    <div class="container mb-8">
+      <p class="section-label">Capabilities</p>
+      <h2 class="text-2xl font-bold text-zinc-900 dark:text-zinc-100">My Stack</h2>
+    </div>
+    <SkillMap />
+  </section>
+
+  <!-- Experience Preview -->
+  <section class="container py-24" data-animate>
+    <div class="flex items-end justify-between mb-8">
+      <div>
+        <p class="section-label">Career</p>
+        <h2 class="text-2xl font-bold text-zinc-900 dark:text-zinc-100">Work Experience</h2>
+      </div>
+      <a href="/experience" class="text-sm font-medium text-orange-500 hover:text-orange-400 transition-colors shrink-0">
+        View all →
+      </a>
+    </div>
+
+    <ExperienceTimeline preview />
+
+    <div class="mt-6">
+      <a href="/experience" class="inline-flex items-center gap-1.5 text-sm font-medium text-orange-500 hover:text-orange-400 transition-colors">
+        View detailed experience
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="container pt-16 sm:pt-24 pb-24" data-animate>
+    <div class="card p-8 sm:p-12 text-center bg-gradient-to-br from-orange-50 to-rose-50 dark:from-orange-950/20 dark:to-rose-950/20 border-orange-100 dark:border-none">
+      <h2 class="text-2xl sm:text-3xl font-bold mb-4">Have a project in mind?</h2>
+      <p class="text-zinc-500 dark:text-zinc-400 mb-8 max-w-md mx-auto">
+        I'm currently open to new opportunities and interesting collaborations.
+        Let's build something together.
+      </p>
+      <a href="/contact" class="btn-primary mx-auto w-fit">
+        Get in Touch
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+</BaseLayout>

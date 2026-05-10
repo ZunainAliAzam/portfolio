@@ -1,0 +1,120 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const certifications = [
+  {
+    name: 'AI for Everyone',
+    issuer: 'Deeplearning.AI',
+    year: '2024',
+    url: 'https://www.coursera.org/account/accomplishments/certificate/3DS2L97WJQKU',
+  },
+  {
+    name: 'JavaScript Algorithms and Data Structures',
+    issuer: 'FreeCodeCamp',
+    year: '2023',
+    url: 'https://www.freecodecamp.org/certification/zunain_azam/javascript-algorithms-and-data-structures',
+  },
+  {
+    name: 'Python Fundamentals',
+    issuer: 'Datacamp',
+    year: '2023',
+    url: null,
+  },
+  {
+    name: 'Web Development with React and MongoDB',
+    issuer: 'Udemy',
+    year: '2023',
+    url: 'https://www.udemy.com/certificate/UC-c26bd80f-ce34-4b3a-8739-2d29994e2e24/',
+  },
+];
+---
+
+<BaseLayout
+  title="About"
+  description="Learn more about Zunain Ali Azam — a Software Engineer with a focus on building scalable frontend applications using React, Angular, Next.js, and TypeScript."
+>
+  <div class="container py-16 sm:py-24">
+    <div class="max-w-2xl">
+      <p class="section-label">About Me</p>
+      <h1 class="text-3xl sm:text-4xl font-bold tracking-tight mb-8">
+        Shipping scalable web products.
+      </h1>
+
+      <div class="prose prose-zinc dark:prose-invert max-w-none mb-16
+                  prose-p:text-zinc-500 dark:prose-p:text-zinc-400
+                  prose-a:text-indigo-500 prose-a:no-underline hover:prose-a:underline">
+        <p>
+          I'm Zunain Ali Azam, a Software Engineer based in Karachi, Pakistan. I specialize in
+          frontend architecture across React, Angular, and Next.js — building UIs that handle
+          real scale, real users, and real operational complexity.
+        </p>
+        <p>
+          Currently at <a href="https://iomechs.com" target="_blank" rel="noopener">IOMechs</a>,
+          I work across multiple live products: maintaining and evolving Admin dashboards on
+          Estenarh (80,000+ users), building inventory and POS workflows on AZM, and stabilizing
+          the NowCutz platform. I've led Angular v14→v17 and Next.js v14→v16 migrations,
+          resolved technical SEO issues, and built analytical dashboards that replaced manual
+          reporting for client teams — cutting reporting effort by ~30–40%.
+        </p>
+        <p>
+          I also volunteer at the <strong>B17 Fund Initiative</strong>, conducting mock interviews
+          and mentoring students on career readiness. Previously, I led public relations for the
+          <strong>Google Developers Student Club</strong> at the University of Karachi, organizing
+          workshops that connected 250+ students with mentorship and career opportunities.
+        </p>
+      </div>
+
+      <!-- Education -->
+      <div class="mb-16">
+        <h2 class="text-xl font-bold mb-6 text-zinc-900 dark:text-zinc-100">Education</h2>
+        <div class="card px-5 py-4 flex items-center justify-between gap-4">
+          <div>
+            <p class="font-medium text-sm text-zinc-900 dark:text-zinc-100">Bachelor of Science in Computer Science</p>
+            <p class="text-xs text-zinc-400 dark:text-zinc-500 mt-0.5">University of Karachi &mdash; Karachi, Pakistan</p>
+          </div>
+          <span class="text-xs font-mono text-zinc-400 dark:text-zinc-500 shrink-0">2021 &ndash; 2024</span>
+        </div>
+      </div>
+
+      <!-- Certifications -->
+      <div class="mb-16">
+        <h2 class="text-xl font-bold mb-6 text-zinc-900 dark:text-zinc-100">Certifications</h2>
+        <div class="flex flex-col gap-3">
+          {certifications.map((cert) => (
+            <div class="card px-5 py-4 flex items-center justify-between gap-4">
+              <div>
+                <p class="font-medium text-sm text-zinc-900 dark:text-zinc-100">{cert.name}</p>
+                <p class="text-xs text-zinc-400 dark:text-zinc-500">{cert.issuer}</p>
+              </div>
+              <div class="flex items-center gap-3 shrink-0">
+                <span class="text-xs font-mono text-zinc-400 dark:text-zinc-500">{cert.year}</span>
+                {cert.url && (
+                  <a
+                    href={cert.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-zinc-400 hover:text-orange-500 dark:text-zinc-500 dark:hover:text-orange-400 transition-colors"
+                    aria-label={`Verify ${cert.name} certificate`}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                      <polyline points="15 3 21 3 21 9"/>
+                      <line x1="10" x2="21" y1="14" y2="3"/>
+                    </svg>
+                  </a>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="flex flex-wrap gap-3">
+        <a href="/contact" class="btn-primary">Work With Me</a>
+        <a href="/experience" class="btn-secondary">View Experience</a>
+        <a href="/projects" class="btn-secondary">View Projects</a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
