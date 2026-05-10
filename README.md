@@ -1,0 +1,186 @@
+# Zunain Ali Azam — Portfolio
+
+Personal portfolio and blog built with [Astro](https://astro.build), Tailwind CSS, and MDX. Live at **[muhammadamas.dev](https://muhammadamas.dev)**.
+
+---
+
+## Tech Stack
+
+| Layer | Choice |
+|---|---|
+| Framework | Astro 4 |
+| Styling | Tailwind CSS 3 + `@tailwindcss/typography` |
+| Content | MDX via `@astrojs/mdx` |
+| Language | TypeScript |
+| Package Manager | pnpm |
+
+---
+
+## Project Structure
+
+```
+src/
+├── content/
+│   ├── blog/          # MDX blog posts
+│   ├── projects/      # Markdown project entries
+│   └── config.ts      # Content collection schemas
+├── layouts/
+│   ├── BaseLayout.astro   # Root layout — SEO, fonts, theme
+│   └── BlogLayout.astro   # Article layout extends BaseLayout
+├── pages/
+│   ├── index.astro        # Homepage
+│   ├── about.astro
+│   ├── experience.astro
+│   ├── resume.astro
+│   ├── contact.astro
+│   ├── sent.astro
+│   ├── 404.astro
+│   ├── blog/[slug].astro
+│   └── projects/[slug].astro
+├── components/        # Reusable Astro components
+└── styles/
+    └── global.css
+public/
+├── robots.txt
+├── og-image.png       # Default Open Graph image
+└── favicon.svg
+```
+
+---
+
+## Getting Started
+
+```bash
+pnpm install
+pnpm dev        # http://localhost:4321
+pnpm build      # Production build → dist/
+pnpm preview    # Preview production build locally
+```
+
+---
+
+## Adding Content
+
+**New blog post** — create `src/content/blog/my-post.mdx`:
+
+```mdx
+---
+title: "Post Title"
+description: "One-line summary for SEO and card previews."
+date: 2026-05-10
+tags: ["astro", "typescript"]
+image: "/images/my-post.png"   # optional OG image override
+draft: false
+---
+
+Post body here...
+```
+
+**New project** — create `src/content/projects/my-project.md`:
+
+```md
+---
+title: "Project Name"
+description: "What it does."
+tech: ["React", "TypeScript"]
+category: "Web App"
+github: "https://github.com/..."
+live: "https://..."
+image: "/images/my-project.png"
+featured: true
+order: 1
+yearCompleted: 2026
+highlights: ["Key achievement", "Another one"]
+---
+
+Project details here...
+```
+
+---
+
+## SEO
+
+### How it works end-to-end
+
+Every page on this site goes through `BaseLayout.astro`, which injects all SEO metadata into `<head>` automatically. You never write meta tags by hand in individual pages — you just pass `title`, `description`, and optionally `image` as props.
+
+```astro
+<!-- Any page: -->
+<BaseLayout
+  title="Experience"
+  description="My work history as a Software Engineer."
+>
+  <!-- page content -->
+</BaseLayout>
+```
+
+That single prop-pass produces all of the following in `<head>`:
+
+```html
+<title>Experience | Zunain Ali Azam</title>
+<meta name="description" content="My work history as a Software Engineer." />
+<link rel="canonical" href="https://muhammadamas.dev/experience" />
+
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://muhammadamas.dev/experience" />
+<meta property="og:title" content="Experience | Zunain Ali Azam" />
+<meta property="og:description" content="My work history as a Software Engineer." />
+<meta property="og:image" content="https://muhammadamas.dev/og-image.png" />
+<meta property="og:site_name" content="Zunain Ali Azam" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Experience | Zunain Ali Azam" />
+<meta name="twitter:description" content="My work history as a Software Engineer." />
+<meta name="twitter:image" content="https://muhammadamas.dev/og-image.png" />
+```
+
+### SEO layer by layer
+
+**1. Title tag**
+The title is constructed in `BaseLayout.astro`:
+- Homepage (`title === 'Zunain Ali Azam'`) → `Zunain Ali Azam`
+- All other pages → `{Page Title} | Zunain Ali Azam`
+
+This ensures every page has a unique, descriptive title with consistent branding.
+
+**2. Meta description**
+Each page passes its own `description` prop. There is a default fallback (`"Zunain Ali Azam — Software Engineer specializing in React, Angular, Next.js, and TypeScript."`) for pages that omit it, but every meaningful page should supply its own.
+
+**3. Canonical URL**
+Generated dynamically from `Astro.site` + the current page path:
+```ts
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+// → https://muhammadamas.dev/experience
+```
+This prevents duplicate-content penalties if the site is ever mirrored or accessed via multiple domains.
+
+**4. Open Graph (social sharing)**
+Controls how links appear when shared on LinkedIn, Facebook, Slack, Discord, etc. The `image` prop (defaults to `/og-image.png`) is the preview thumbnail. Blog posts pass `type="article"` via `BlogLayout.astro` for richer article previews.
+
+**5. Twitter Card**
+Uses `summary_large_image` — produces a large image card when a URL is shared on X/Twitter. Same title, description, and image as Open Graph.
+
+**6. Sitemap**
+`@astrojs/sitemap` automatically generates `sitemap-index.xml` at build time, listing every public page and content collection entry. Astro discovers pages by crawling the `pages/` directory and content collections. `robots.txt` points crawlers to the sitemap:
+
+```
+User-agent: *
+Allow: /
+Sitemap: https://muhammadamas.dev/sitemap-index.xml
+```
+
+**7. Blog posts and projects (content collections)**
+`BlogLayout.astro` extends `BaseLayout` and sets `type="article"`, which signals to social platforms and search engines that the page is a long-form article. The `date` frontmatter field is rendered as a `<time datetime="...">` element, which search engines use for freshness signals.
+
+### What to keep in mind when adding pages
+
+- Always pass a unique, specific `description` prop (120–160 characters) — this is what appears as the snippet in Google results.
+- Provide a custom `image` prop for blog posts and project pages — custom OG images dramatically increase click-through rate from social shares.
+- The `sent.astro` and `404.astro` pages are intentionally excluded from the sitemap by Astro (they aren't linked content) — no action needed.
+- Page titles are automatically de-duped: only the homepage renders without the `| Zunain Ali Azam` suffix.
+
+---
+
+## Deployment
+
+The site is a static build (`pnpm build` → `dist/`). Deploy the `dist/` folder to any static host (Vercel, Netlify, Cloudflare Pages, etc.). Make sure the host serves the site at `https://muhammadamas.dev` so canonical URLs and the sitemap resolve correctly.
