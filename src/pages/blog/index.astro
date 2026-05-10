@@ -1,0 +1,41 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BlogCard from '@/components/BlogCard.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+---
+
+<BaseLayout
+  title="Blog"
+  description="Zunain Ali Azam writes about JavaScript, React, Angular, TypeScript, and web development. Practical articles for working developers."
+>
+  <div class="container py-16 sm:py-24">
+    <p class="section-label">Writing</p>
+    <h1 class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Blog</h1>
+    <p class="text-zinc-500 dark:text-zinc-400 mb-12 max-w-xl">
+      Thoughts on React, Node.js, cloud architecture, and the craft of building for the web.
+      I also publish on <a href="https://zunainaliazam.medium.com" target="_blank" rel="noopener" class="text-indigo-500 hover:text-indigo-400 transition-colors">Medium</a>.
+    </p>
+
+    {posts.length === 0 ? (
+      <div class="card p-12 text-center">
+        <p class="text-zinc-400 dark:text-zinc-500">No posts yet — check back soon.</p>
+      </div>
+    ) : (
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {posts.map((post) => (
+          <BlogCard
+            title={post.data.title}
+            description={post.data.description}
+            date={post.data.date}
+            tags={post.data.tags}
+            slug={post.slug}
+          />
+        ))}
+      </div>
+    )}
+  </div>
+</BaseLayout>

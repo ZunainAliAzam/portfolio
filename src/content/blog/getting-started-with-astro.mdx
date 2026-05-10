@@ -1,0 +1,47 @@
+---
+title: "Why I Rebuilt My Portfolio with Astro"
+description: "After running a React+Vite portfolio for a year, I migrated to Astro. Here's what changed, what I gained, and whether it was worth it."
+date: 2025-01-15
+tags: ["Astro", "Performance", "Web Dev"]
+draft: false
+---
+
+After shipping my React+Vite portfolio, I had one persistent issue: **Lighthouse scores**.
+
+Despite tree-shaking and lazy loading, the JS bundle always landed between 180–240kb. For a site that's 95% static content, that felt wrong.
+
+## Why Astro
+
+Astro ships **zero JavaScript by default**. HTML and CSS only — unless you explicitly opt a component into client-side hydration using an Island. For a portfolio site, that's the correct default.
+
+The result: my Lighthouse performance score went from the mid-70s to **99** after the migration.
+
+## What the Migration Looked Like
+
+The data layer was the easiest win. Instead of maintaining a `projectsInfo.js` array, I now have individual Markdown files with typed frontmatter via Content Collections:
+
+```ts
+// src/content/config.ts
+const projects = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    tech: z.array(z.string()),
+    featured: z.boolean().default(false),
+  }),
+});
+```
+
+Each project is a `.md` file. Querying them is dead simple:
+
+```ts
+const featured = await getCollection('projects', ({ data }) => data.featured);
+```
+
+## What I Kept from React
+
+Framer Motion animations — but only on the hero section. Everything else is CSS transitions. One Astro Island, paying the React runtime cost once, for a component that genuinely benefits from it.
+
+## Verdict
+
+If you're building a portfolio, blog, or any mostly-static site: **use Astro**. Save Next.js for when you're building something that actually needs server-side logic at scale.
